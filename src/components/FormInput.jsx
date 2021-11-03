@@ -3,16 +3,28 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import FormControl from "react-bootstrap/FormControl";
 
-const FormInput = ({label, placeholder, onChange, value, validInput}) => {
-    return(
-        <Form.Group as={Row} className="mb-2 me-2" controlId="formBasicEmail">
-            <Form.Label column sm="2" style={{textAlign: "right"}}>{label}</Form.Label>
-            <Col sm="10">
-                <Form.Control isInvalid={validInput} size="sm" type="text" placeholder={placeholder} onChange={onChange} value={value} />
-            </Col>
-        </Form.Group>
-    )
-}
+const FormInput = ({ label, placeholder, onChange, value, validInput }) => {
+  return (
+    <Form.Group as={Row} className="mb-2 me-2" controlId="formBasicText">
+      <Form.Label column sm="2" style={{ textAlign: "right" }}>
+        {label}
+      </Form.Label>
+      <Col sm="10">
+        <Form.Control
+          required
+          isInvalid={validInput}
+          size="sm"
+          type="text"
+          placeholder={placeholder}
+          onChange={onChange}
+          value={value}
+        />
+        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>{" "}
+      </Col>
+    </Form.Group>
+  );
+};
 
 export default FormInput;
