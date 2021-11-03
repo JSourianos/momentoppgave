@@ -13,25 +13,25 @@ const ListElement = ({userObject, updatePerson, deletePerson}) => {
     //The edit flag will be set by clicking the edit button
     if (editFlag) {
         return (
-            <div>
+            <Card>
                 <ContactForm handleSubmit={setNewUserData} setEditFlag={setEditFlag} userObject={userObject}
                              deletePerson={deletePerson}/>
-            </div>
-        )
-    } else {
-        return (
-            <Card>
-                <Card.Body style={{
-                    display: "flex",
-                    justifyContent: "space-between"
-                }}>{userObject.firstName} {userObject.lastName} {userObject.phoneNumber}
-                    <Button size="sm" onClick={() => {
-                        setEditFlag((editFlag) => !editFlag)
-                    }}>Rediger</Button>
-                </Card.Body>
             </Card>
         )
     }
+    return (
+        <Card>
+            <Card.Body style={{
+                display: "flex",
+                justifyContent: "space-between"
+            }}>{userObject.firstName} {userObject.lastName} {userObject.phoneNumber}
+                <Button size="sm" onClick={() => {
+                    setEditFlag((editFlag) => !editFlag)
+                }}>Rediger</Button>
+            </Card.Body>
+        </Card>
+    )
+
 }
 
 export default ListElement

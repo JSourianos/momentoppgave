@@ -4,7 +4,6 @@ import React, {useState} from "react";
 import Container from "react-bootstrap/Container"
 
 //Components
-import ContactForm from "./components/ContactForm";
 import ListElement from "./components/ListElement";
 import ListTopBar from "./components/ListTopBar";
 import ListView from "./components/ListView";
@@ -20,14 +19,11 @@ const initialData = [
 
 function App() {
     const [listData, setListData] = useState(initialData)
-    const [newUserFlag, setNewUserFlag] = useState(false)
 
     const createPerson = (newUserObject) => {
-        console.log(newUserObject) //Remove this
-        newUserObject.id = Math.random(); //sort this out
-
-        setListData((listData) => [...listData, newUserObject])
-        console.log(newUserObject); //Remove this
+        //Creating a simple "unique" id that will work for this demo
+        newUserObject.id = Math.random();
+        return setListData((listData) => [...listData, newUserObject])
     }
 
     const updatePerson = (userObject) => {
@@ -41,12 +37,13 @@ function App() {
     }
 
     const deletePerson = (userObject) => {
+        //Creating a copy of the array to not mutate current state
         let newListData = [...listData];
         let currentUserIndex = newListData.findIndex(user => user.id === userObject.id)
 
         if (currentUserIndex !== -1) {
             newListData.splice(currentUserIndex, 1)
-            setListData((newlistData) => [...newListData])
+            return setListData((newListData) => [...newListData])
         }
     }
 
@@ -58,11 +55,9 @@ function App() {
     }
 
     return (
-        <Container className="App">
-            <h1>Moment Testoppgave</h1>
-            <ListTopBar setNewUserFlag={setNewUserFlag}/>
-            {newUserFlag ? <ContactForm handleSubmit={createPerson} setEditFlag={setNewUserFlag} editFlag={newUserFlag}
-                                        userObject={{}}/> : ""}
+        <Container className="mt-5">
+            <h1>Moment</h1>
+            <ListTopBar createPerson={createPerson}/>
             <ListView renderListElements={renderListElements}/>
         </Container>
     );
