@@ -10,20 +10,23 @@ const ListElement = ({userObject, updatePerson, deletePerson}) => {
     const setNewUserData = (newFields) => {
         updatePerson({...userObject, ...newFields})
     }
-
-    if(editFlag) {
+    //The edit flag will be set by clicking the edit button
+    if (editFlag) {
         return (
             <div>
-                <ContactForm handleSubmit={setNewUserData} setEditFlag={setEditFlag} userObject={userObject} deletePerson={deletePerson} />
+                <ContactForm handleSubmit={setNewUserData} setEditFlag={setEditFlag} userObject={userObject}
+                             deletePerson={deletePerson}/>
             </div>
         )
     } else {
-        return(
+        return (
             <Card>
-                <Card.Body style={{display: "flex", justifyContent: "space-between"}}>{userObject.firstName} {userObject.lastName} {userObject.phoneNumber}
+                <Card.Body style={{
+                    display: "flex",
+                    justifyContent: "space-between"
+                }}>{userObject.firstName} {userObject.lastName} {userObject.phoneNumber}
                     <Button size="sm" onClick={() => {
                         setEditFlag((editFlag) => !editFlag)
-                        console.log(userObject) //REMEMBER TO REMOVE
                     }}>Rediger</Button>
                 </Card.Body>
             </Card>
