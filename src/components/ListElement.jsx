@@ -1,9 +1,8 @@
-//This list element needs to be toggable
-import ContactForm from "./ContactForm";
+import React, {useState} from "react";
 
+import ContactForm from "./ContactForm";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button"
-import React, {useState} from "react";
 
 const ListElement = ({userObject, updatePerson, deletePerson}) => {
     const [editFlag, setEditFlag] = useState(false)
@@ -21,8 +20,11 @@ const ListElement = ({userObject, updatePerson, deletePerson}) => {
     } else {
         return(
             <Card>
-                <Card.Body>{userObject.firstName} {userObject.lastName} {userObject.phoneNumber}
-                    <Button onClick={() => setEditFlag((editFlag) => !editFlag)}>Rediger</Button>
+                <Card.Body style={{display: "flex", justifyContent: "space-between"}}>{userObject.firstName} {userObject.lastName} {userObject.phoneNumber}
+                    <Button size="sm" onClick={() => {
+                        setEditFlag((editFlag) => !editFlag)
+                        console.log(userObject) //REMEMBER TO REMOVE
+                    }}>Rediger</Button>
                 </Card.Body>
             </Card>
         )

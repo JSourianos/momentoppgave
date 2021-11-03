@@ -6,8 +6,7 @@ import Container from "react-bootstrap/Container"
 //Components
 import ContactForm from "./components/ContactForm";
 import ListElement from "./components/ListElement";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
+import AddUserCard from "./components/AddUserCard";
 
 const initialData = [
     {
@@ -18,18 +17,8 @@ const initialData = [
     }
 ]
 
-//RENAME THIS
-const AddUserCard = ({setNewUserFlag}) => {
-    return(
-        <Card>
-            <Card.Body><Button onClick={() => setNewUserFlag(true)}>+ Legg til ny kontakt</Button></Card.Body>
-        </Card>
-    )
-}
-
 function App() {
     const [listData, setListData] = useState(initialData)
-
     const [newUserFlag, setNewUserFlag] = useState(false)
 
     const createPerson = (newUserObject) => {
@@ -60,16 +49,16 @@ function App() {
         }
     }
 
-  return (
-    <Container>
-      <h1>Moment Testoppgave</h1>
-        {newUserFlag ?
-            <ContactForm handleSubmit={createPerson} setEditFlag={setNewUserFlag} editFlag={newUserFlag} />
-            :
-            <AddUserCard setNewUserFlag={setNewUserFlag} />
-        }
+    const renderListElements = () => {
+        return listData.map((data, index) => <ListElement key={index} userObject={data} deletePerson={deletePerson} updatePerson={updatePerson}/>)
+    }
 
-        {listData.map((data, index) => <ListElement key={index} userObject={data} deletePerson={deletePerson} updatePerson={updatePerson}/>)}
+  return (
+    <Container className="App">
+      <h1>Moment Testoppgave</h1>
+        <AddUserCard setNewUserFlag={setNewUserFlag} />
+        {newUserFlag ? <ContactForm handleSubmit={createPerson} setEditFlag={setNewUserFlag} editFlag={newUserFlag} userObject={{}}/> : ""}
+        {renderListElements()}
     </Container>
   );
 }
