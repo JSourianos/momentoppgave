@@ -1,15 +1,15 @@
 import React from "react";
-import Form from "react-bootstrap/Form";
 
+import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-const FormInput = ({label, placeholder, onChange, value}) => {
+const FormInput = ({label, placeholder, onChange, value, validInput}) => {
     return(
-        <Form.Group as={Row} className="mb-3" controlId="formBasicEmail">
-            <Form.Label column sm="2">{label}</Form.Label>
+        <Form.Group as={Row} className="mb-2 me-2" controlId="formBasicEmail">
+            <Form.Label column sm="2" style={{textAlign: "right"}}>{label}</Form.Label>
             <Col sm="10">
-                <Form.Control size="sm" type="text" placeholder={placeholder} onChange={onChange} value={value} />
+                <Form.Control isInvalid={validInput} size="sm" type="text" placeholder={placeholder} onChange={onChange} value={value} />
             </Col>
         </Form.Group>
     )

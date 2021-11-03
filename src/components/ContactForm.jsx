@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 
 //Bootstrap
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card"
 
 //Components
 import FormInput from "./FormInput";
@@ -12,31 +13,53 @@ const ContactForm = ({handleSubmit, setEditFlag, deletePerson, userObject, editF
     const [lastName, setLastName] = useState(userObject.lastName || "");
     const [phoneNumber, setPhoneNumber] = useState(userObject.phoneNumber || "");
 
-    //Add validation!
+    //Input states
+    const [firstNameInputError, setFirstNameInputError] = useState(false);
+    const [lastNameInputError, setLastNameInputError] = useState(false);
+    const [phoneNumberInputError, setPhoneNumberInputError] = useState(false);
+
     const returnFormValues = () => {
+        //Simple validation
+        if(firstName === ""){
+          return setFirstNameInputError(true)
+        }
+
+        if(lastName === ""){
+            return setLastNameInputError(true)
+        }
+
+        if(phoneNumber === ""){
+            return setPhoneNumberInputError(true)
+        }
+
         handleSubmit({firstName, lastName, phoneNumber})
+        setEditFlag(false)
     }
 
     return (
-        <Form style={{marginTop: "1rem"}} onSubmit={(e) => e.preventDefault()}>
-            <FormInput label="Firstname" placeholder={"Enter firstname"} onChange={e => setFirstName(e.target.value)}
+        <Card>
+
+        <Form className="mt-5" onSubmit={(e) => e.preventDefault()}>
+            <FormInput validInput={firstNameInputError} label="Firstname" placeholder={"Enter firstname"} onChange={e => setFirstName(e.target.value)}
                        value={firstName}
             />
-            <FormInput label="Lastname" placeholder={"Enter lastname"} onChange={e => setLastName(e.target.value)} value={lastName} />
-            <FormInput label="Phonenumber" placeholder={"Enter phonenumber"} onChange={e => setPhoneNumber(e.target.value)} value={phoneNumber} />
+            <FormInput validInput={lastNameInputError} label="Lastname" placeholder={"Enter lastname"} onChange={e => setLastName(e.target.value)} value={lastName} />
+            <FormInput validInput={phoneNumberInputError} label="Phonenumber" placeholder={"Enter phonenumber"} onChange={e => setPhoneNumber(e.target.value)} value={phoneNumber} />
 
-            <Button size="sm" variant="primary" type="submit" onClick={() => {
+            <Button className="float-end me-4 mt-2 mb-2" size="sm" variant="primary" type="submit" onClick={() => {
                 returnFormValues()
-                setEditFlag(false)
             }}>Lagre</Button>
 
-            <Button size="sm" variant="secondary" type="button" onClick={() => setEditFlag(false)}>Avbryt</Button>
+            <Button className="float-end me-2 mt-2" size="sm" variant="secondary" type="button" onClick={() => setEditFlag(false)}>Avbryt</Button>
 
-            {!editFlag ?  <Button size="sm" variant="danger" type="button" onClick={() => {
+            {!editFlag ?  <Button className="float-start ms-4 mt-2" size="sm" variant="danger" type="button"
+                                  onClick={() => {
                 deletePerson(userObject)
                 setEditFlag(false)
             }}>Slett bruker</Button> : ""}
         </Form>
+        </Card>
+
     )
 }
 
