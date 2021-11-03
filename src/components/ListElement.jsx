@@ -3,17 +3,27 @@ import ContactForm from "./ContactForm";
 
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button"
+import React, {useState} from "react";
 
-const ListElement = ({data, toggleEdit, setToggleEdit}) => {
-    if(toggleEdit) {
+const ListElement = ({userObject, updatePerson, deletePerson}) => {
+    const [editFlag, setEditFlag] = useState(false)
+
+    const setNewUserData = (newFields) => {
+        updatePerson({...userObject, ...newFields})
+    }
+
+    if(editFlag) {
         return (
-            <ContactForm />
+            <div>
+                <ContactForm handleSubmit={setNewUserData} setEditFlag={setEditFlag} userObject={userObject} deletePerson={deletePerson} />
+            </div>
         )
     } else {
         return(
             <Card>
-                <Card.Body>{data.firstName} {data.lastName} {data.phoneNumber}</Card.Body>
-                <Card.Footer><Button>Hello</Button></Card.Footer>
+                <Card.Body>{userObject.firstName} {userObject.lastName} {userObject.phoneNumber}
+                    <Button onClick={() => setEditFlag((editFlag) => !editFlag)}>Rediger</Button>
+                </Card.Body>
             </Card>
         )
     }

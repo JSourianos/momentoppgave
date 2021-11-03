@@ -1,50 +1,75 @@
 import './App.css';
-import {useState} from "react";
+import React, {useState} from "react";
 
 import Container from "react-bootstrap/Container"
 
 //Components
 import ContactForm from "./components/ContactForm";
 import ListElement from "./components/ListElement";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
 const initialData = [
     {
-        id: "03493432",
+        id: 0,
         firstName: "Test",
         lastName: "Mannen",
         phoneNumber: "12345678"
     }
 ]
 
+//RENAME THIS
+const AddUserCard = ({setNewUserFlag}) => {
+    return(
+        <Card>
+            <Card.Body><Button onClick={() => setNewUserFlag(true)}>+ Legg til ny kontakt</Button></Card.Body>
+        </Card>
+    )
+}
+
 function App() {
     const [listData, setListData] = useState(initialData)
 
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
-    const [phoneNumber, setPhoneNumber] = useState("")
+    const [newUserFlag, setNewUserFlag] = useState(false)
 
-    const [toggleEdit, setToggleEdit] = useState(false)
+    const createPerson = (newUserObject) => {
+        console.log(newUserObject)
+        newUserObject.id = Math.random(); //sort this out
 
-    const handleAdd = (e) => {
-        e.preventDefault();
+        setListData((listData) => [...listData, newUserObject])
+        console.log(newUserObject);
+    }
 
-        const id = Math.floor(Math.random() * 100000);
-        const newEntry = {
-            id,
-            firstName,
-            lastName,
-            phoneNumber
+    const updatePerson = (userObject) => {
+        let currentUserIndex = listData.findIndex(user => user.id === userObject.id)
+
+        setListData((newListData) => {
+            newListData[currentUserIndex] = userObject
+
+            return [...newListData]
+        });
+    }
+
+    const deletePerson = (userObject) => {
+        let newListData = [...listData];
+        let currentUserIndex = newListData.findIndex(user => user.id === userObject.id)
+
+        if(currentUserIndex !== -1) {
+            newListData.splice(currentUserIndex, 1)
+            setListData((newlistData) => [...newListData])
         }
-
-        setListData((listData) => [...listData, newEntry])
     }
 
   return (
     <Container>
       <h1>Moment Testoppgave</h1>
-        <ContactForm handleSubmit={handleAdd} setFirstName={setFirstName} setLastName={setLastName} setPhoneNumber={setPhoneNumber}/>
+        {newUserFlag ?
+            <ContactForm handleSubmit={createPerson} setEditFlag={setNewUserFlag} editFlag={newUserFlag} />
+            :
+            <AddUserCard setNewUserFlag={setNewUserFlag} />
+        }
 
-        {listData.map((data, index) => <ListElement key={index} data={data} toggleEdit={toggleEdit} setToggleEdit={setToggleEdit} />)}
+        {listData.map((data, index) => <ListElement key={index} userObject={data} deletePerson={deletePerson} updatePerson={updatePerson}/>)}
     </Container>
   );
 }
