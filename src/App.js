@@ -14,6 +14,18 @@ const initialData = [
     lastName: "Mannen",
     phoneNumber: "12345678",
   },
+  {
+    id: 1,
+    firstName: "Luiso",
+    lastName: "Fabrice",
+    phoneNumber: "60006909",
+  },
+  {
+    id: 2,
+    firstName: "Rot",
+    lastName: "Kei",
+    phoneNumber: "88833222",
+  },
 ];
 
 function App() {
@@ -46,7 +58,7 @@ function App() {
 
     if (currentUserIndex !== -1) {
       newListData.splice(currentUserIndex, 1);
-      return setListData((newListData) => [...newListData]);
+      return setListData(() => [...newListData]);
     }
   };
 
@@ -62,7 +74,11 @@ function App() {
   };
 
   return (
-    <Container className="mt-5">
+    <Container
+      fluid="sm"
+      className="mt-5 shadow-sm p-3 mb-5 bg-white rounded"
+      size="sm"
+    >
       <h1>Moment</h1>
       <ListTopBar createPerson={createPerson} />
       <ListView renderListElements={renderListElements} />

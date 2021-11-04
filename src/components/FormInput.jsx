@@ -3,7 +3,6 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import FormControl from "react-bootstrap/FormControl";
 
 const FormInput = ({ label, placeholder, onChange, value, validInput }) => {
   return (
