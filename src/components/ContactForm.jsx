@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 //Bootstrap
 import Form from "react-bootstrap/Form";
@@ -8,16 +8,18 @@ import Button from "react-bootstrap/Button";
 import FormInput from "./FormInput";
 
 const ContactForm = ({
-                         handleSubmit,
-                         setEditFlag,
-                         deletePerson,
-                         userObject,
-                         editFlag,
-                     }) => {
+    handleSubmit,
+    setEditFlag,
+    deletePerson,
+    userObject,
+    editFlag,
+}) => {
     //When editing a user we have access to the current objects name, so we add it to the input fields
     const [firstName, setFirstName] = useState(userObject.firstName || "");
     const [lastName, setLastName] = useState(userObject.lastName || "");
-    const [phoneNumber, setPhoneNumber] = useState(userObject.phoneNumber || "");
+    const [phoneNumber, setPhoneNumber] = useState(
+        userObject.phoneNumber || ""
+    );
 
     //Input states
     const [firstNameInputError, setFirstNameInputError] = useState(false);
@@ -26,7 +28,6 @@ const ContactForm = ({
 
     //This function returns the form values to the onSubmit handlers in the top level component
     const returnFormValues = () => {
-
         //Simple validation
         if (firstName === "") {
             setFirstNameInputError(true);
@@ -48,7 +49,7 @@ const ContactForm = ({
         //Simple validation - an empty string is always false
         if (firstName && lastName && phoneNumber) {
             //The destructured values will become the newUserObject
-            handleSubmit({firstName, lastName, phoneNumber});
+            handleSubmit({ firstName, lastName, phoneNumber });
             setEditFlag(false);
         }
     };
@@ -109,7 +110,7 @@ const ContactForm = ({
                         setEditFlag(false);
                     }}
                 >
-                    <i className="bi bi-trash"/> Slett bruker
+                    <i className="bi bi-trash" /> Slett bruker
                 </Button>
             )}
         </Form>

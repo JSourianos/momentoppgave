@@ -1,29 +1,25 @@
 import React from "react";
-import '@testing-library/jest-dom'
-import {render, screen} from "@testing-library/react";
+import "@testing-library/jest-dom";
+import { render, screen } from "@testing-library/react";
 import App from "../App";
-
 
 describe("App", () => {
     it("renders App component", () => {
-        render(<App/>)
-
+        render(<App />);
     });
 
     it("renders Moment title", () => {
-        render(<App/>)
+        render(<App />);
         expect(screen.getByText(/Moment/)).toBeInTheDocument();
     });
 
     it("renders Ny Bruker title", () => {
-        render(<App/>)
+        render(<App />);
         expect(screen.getByText(/Ny bruker/)).toBeInTheDocument();
-    })
+    });
 
     it("renders buttons", () => {
-        render(<App/>)
-
-        //When the app renders we should have 4 buttons
-        expect(screen.getAllByRole('button')).toHaveLength(4);
+        render(<App />);
+        expect(screen.getAllByRole("button")).toHaveLength(4); //When the app renders we should have 4 buttons
     });
-})
+});

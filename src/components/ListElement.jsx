@@ -1,15 +1,15 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import ContactForm from "./ContactForm";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 
-const ListElement = ({userObject, updatePerson, deletePerson}) => {
-    const {firstName, lastName, phoneNumber} = userObject;
+const ListElement = ({ userObject, updatePerson, deletePerson }) => {
+    const { firstName, lastName, phoneNumber } = userObject;
     const [editFlag, setEditFlag] = useState(false);
 
     const setNewUserData = (newFields) => {
-        updatePerson({...userObject, ...newFields});
+        updatePerson({ ...userObject, ...newFields });
     };
 
     //The edit flag will be set by clicking the edit button
@@ -28,10 +28,13 @@ const ListElement = ({userObject, updatePerson, deletePerson}) => {
     }
     return (
         <Card>
-            <Card.Body className="d-flex justify-content-between justify-items-center">
-                <p>
-                    {firstName} {lastName} {phoneNumber}
-                </p>
+            <Card.Body className="d-flex justify-content-between justify-items-center align-items-center">
+                <div>
+                    <p className="m-0 p-0 fw-bold">
+                        {firstName} {lastName}
+                    </p>
+                    <p className="m-0 p-0">Telefonnummer: {phoneNumber}</p>
+                </div>
                 <Button
                     size="sm"
                     variant="secondary"
@@ -39,7 +42,7 @@ const ListElement = ({userObject, updatePerson, deletePerson}) => {
                         setEditFlag((editFlag) => !editFlag);
                     }}
                 >
-                    <i className="bi bi-pencil-square"/> Rediger
+                    <i className="bi bi-pencil-square" /> Rediger
                 </Button>
             </Card.Body>
         </Card>
