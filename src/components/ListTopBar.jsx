@@ -1,4 +1,3 @@
-//RENAME THIS AND EXTRACT COMPONENT
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import React, { useState } from "react";
